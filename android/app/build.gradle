@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    compile project(':appcenter-push')
     compile project(':react-native-code-push')
     compile project(':appcenter-crashes')
     compile project(':appcenter-analytics')
@@ -153,3 +154,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'

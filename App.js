@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 
 import CodePush from 'react-native-code-push'
+import Analytics from 'appcenter-analytics'
+import Crashes from 'appcenter-crashes'
 
 export default class App extends Component<{}> {
   constructor(props){
@@ -15,6 +17,20 @@ export default class App extends Component<{}> {
     this.state = {
       status : ''
     }
+  }
+
+  sendEvent(){
+    Analytics.trackEvent('Log Event', {
+      prop1 : new Date().getSeconds()
+    })
+  }
+
+  nativeCrash(){
+    Crashes.generateTestCrash();
+  }
+
+  componentWillMount(){
+    this.checkupdate()
   }
 
   checkupdate(){
@@ -28,12 +44,15 @@ export default class App extends Component<{}> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to App Center React Native!
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit App.js
+          CodePush
         </Text>
-        <Button title="CodePush" onPress={ ()=> this.checkupdate() }/>
+
+        <Button title="Event" onPress={ ()=> this.sendEvent() } />
+
+
       </View>
     );
   }
